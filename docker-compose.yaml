@@ -1,0 +1,24 @@
+version: "3.9"
+name: java-pro-homework
+
+services:
+  # Тестовая база данных
+  db:
+    image: postgres:16
+    container_name: test-db
+    environment:
+      POSTGRES_DB: educational_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data
+      TZ: Europe/Moscow
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    ports:
+      - "5434:5432"
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d study -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
