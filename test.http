@@ -1,0 +1,5 @@
+### Получить продукт по productId
+GET http://localhost:8080/product/getByProductId?productId=1
+
+### Получить список продуктов по userId
+GET http://localhost:8080/product/getByUserId?userId=1
