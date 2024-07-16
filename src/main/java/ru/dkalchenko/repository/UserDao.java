@@ -3,7 +3,6 @@ package ru.dkalchenko.repository;
 import org.springframework.stereotype.Repository;
 import ru.dkalchenko.model.User;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,17 +14,17 @@ import java.util.Optional;
 @Repository
 public class UserDao {
 
-    private final DataSource pool;
+    private final Connection connection;
 
-    public UserDao(DataSource dataSource) {
-        this.pool = dataSource;
+    public UserDao(Connection connection) {
+        this.connection = connection;
     }
 
     public Optional<User> save(User user) {
         Optional<User> result;
         String sql = "INSERT INTO main.users(username) VALUES (?)";
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.username());
             ps.execute();
             ResultSet it = ps.getGeneratedKeys();
@@ -40,10 +39,10 @@ public class UserDao {
     }
 
     public Optional<User> findById(Long id) {
-        String sql = "SELECT * FROM main.users WHERE id = ?";
         Optional<User> result = Optional.empty();
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement(sql)) {
+        String sql = "SELECT * FROM main.users WHERE id = ?";
+        try {
+            PreparedStatement ps =  connection.prepareStatement(sql);
             ps.setLong(1, id);
             ResultSet it = ps.executeQuery();
             if (it.next()) {
@@ -58,8 +57,8 @@ public class UserDao {
     public boolean deleteById(Long id) {
         boolean result;
         String sql = "DELETE FROM main.users WHERE id = ?";
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement(sql)) {
+        try {
+            PreparedStatement ps =  connection.prepareStatement(sql);
             ps.setLong(1, id);
             int updated = ps.executeUpdate();
             result = 1 == updated;
@@ -72,8 +71,8 @@ public class UserDao {
     public List<User> findAll() {
         List<User> userList = new ArrayList<>();
         String sql = "SELECT * FROM main.users";
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(sql)) {
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
                     userList.add(createUser(it));

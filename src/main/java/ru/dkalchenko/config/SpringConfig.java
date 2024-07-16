@@ -7,10 +7,23 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 @Configuration
 @ComponentScan(basePackages = "ru.dkalchenko")
 public class SpringConfig {
+
+    @Bean
+    public Connection connection() {
+        Connection connection;
+        try {
+            connection = dataSource().getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return connection;
+    }
 
     @Bean
     public DataSource dataSource() {
