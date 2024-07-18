@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserDao {
+public class UserRepository {
 
     private final Connection connection;
 
-    public UserDao(Connection connection) {
+    public UserRepository(Connection connection) {
         this.connection = connection;
     }
 
