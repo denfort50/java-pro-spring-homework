@@ -4,10 +4,10 @@ name: java-pro-homework
 services:
   # Тестовая база данных
   db:
-    image: postgres:16
+    image: postgres:15
     container_name: test-db
     environment:
-      POSTGRES_DB: educational_db
+      POSTGRES_DB: java_pro
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       PGDATA: /var/lib/postgresql/data
@@ -18,7 +18,7 @@ services:
       - "5434:5432"
     restart: always
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -d study -U postgres" ]
+      test: [ "CMD-SHELL", "pg_isready -d java_pro -U postgres" ]
       interval: 10s
       timeout: 5s
       retries: 5

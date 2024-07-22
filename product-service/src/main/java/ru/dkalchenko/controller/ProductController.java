@@ -9,7 +9,7 @@ import ru.dkalchenko.model.Product;
 import ru.dkalchenko.service.ProductService;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -18,12 +18,12 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/getByProductId")
+    @GetMapping("/one")
     public Product getProductById(@RequestParam(value = "productId") long productId) {
         return productService.getProductById(productId);
     }
 
-    @GetMapping("getByUserId")
+    @GetMapping("/all")
     public ProductResponse getProductsByUserId(@RequestParam(value = "userId") long userId) {
         return new ProductResponse(productService.getProductsByUserId(userId));
     }

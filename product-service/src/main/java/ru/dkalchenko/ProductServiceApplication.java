@@ -13,11 +13,12 @@ import java.util.random.RandomGenerator;
 import java.util.random.RandomGeneratorFactory;
 
 @SpringBootApplication
-public class Application {
+public class ProductServiceApplication {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(Application.class);
-        insertDataIntoDatabase(context);
+        ConfigurableApplicationContext context = SpringApplication.run(ProductServiceApplication.class);
+        // TODO Раскомментировать при первом запуске приложения на новой базе данных
+        // insertDataIntoDatabase(context);
     }
 
     private static void insertDataIntoDatabase(ConfigurableApplicationContext context) {

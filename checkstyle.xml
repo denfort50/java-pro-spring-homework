@@ -157,10 +157,10 @@
         </module>
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
-        <module name="MagicNumber">
-            <property name="ignoreFieldDeclaration" value="true"/>
-            <property name="ignoreAnnotation" value="true"/>
-        </module>
+<!--        <module name="MagicNumber">-->
+<!--            <property name="ignoreFieldDeclaration" value="true"/>-->
+<!--            <property name="ignoreAnnotation" value="true"/>-->
+<!--        </module>-->
         <!--        <module name="MissingSwitchDefault"/>-->
         <module name="MultipleVariableDeclarations"/>
         <module name="SimplifyBooleanExpression"/>

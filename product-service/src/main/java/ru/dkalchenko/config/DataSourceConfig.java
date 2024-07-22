@@ -4,13 +4,20 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 @Configuration
-public class SpringConfig {
+public class DataSourceConfig {
+
+    private final Environment environment;
+
+    public DataSourceConfig(Environment environment) {
+        this.environment = environment;
+    }
 
     @Bean
     public Connection connection() {
@@ -26,10 +33,10 @@ public class SpringConfig {
     @Bean
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
-        config.setDriverClassName("org.postgresql.Driver");
-        config.setJdbcUrl("jdbc:postgresql://localhost:5434/educational_db");
-        config.setUsername("postgres");
-        config.setPassword("password");
+        config.setDriverClassName(environment.getProperty("spring.datasource.driver-class-name"));
+        config.setJdbcUrl(environment.getProperty("spring.datasource.url"));
+        config.setUsername(environment.getProperty("spring.datasource.username"));
+        config.setPassword(environment.getProperty("spring.datasource.password"));
         return new HikariDataSource(config);
     }
 }
