@@ -10,6 +10,7 @@
 
     <modules>
         <module>product-service</module>
+        <module>payment-service</module>
     </modules>
 
     <properties>

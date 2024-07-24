@@ -1,6 +1,8 @@
 package ru.dkalchenko.service;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import ru.dkalchenko.exeption.UserNotFoundException;
 import ru.dkalchenko.model.User;
 import ru.dkalchenko.repository.UserRepository;
 
@@ -23,7 +25,8 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
-        return userOptional.orElseThrow(() -> new RuntimeException("Не удалось найти пользователя по id: " + id));
+        return userOptional.orElseThrow(() ->
+                new UserNotFoundException("Не удалось найти пользователя по id: " + id, HttpStatus.NOT_FOUND));
     }
 
     public boolean deleteById(Long id) {

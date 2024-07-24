@@ -41,6 +41,18 @@ public class ProductRepository {
         return result;
     }
 
+    public void update(Product product) {
+        String sql = " UPDATE main.products SET balance = ? WHERE id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setDouble(1, product.getBalance());
+            ps.setLong(2, product.getId());
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void saveForUser(Long userId, Long productId) {
         String sql = "INSERT INTO main.users_products (user_id, product_id) VALUES (?, ?)";
         try {

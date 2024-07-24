@@ -11,6 +11,7 @@ spring:
 server:
   servlet:
     context-path: "/product-service"
+  port: 8080
 
 logging:
   level:

@@ -1,9 +1,8 @@
 package ru.dkalchenko.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.dkalchenko.dto.PaymentRequest;
+import ru.dkalchenko.dto.PaymentResponse;
 import ru.dkalchenko.dto.ProductResponse;
 import ru.dkalchenko.model.Product;
 import ru.dkalchenko.service.ProductService;
@@ -26,5 +25,10 @@ public class ProductController {
     @GetMapping("/all")
     public ProductResponse getProductsByUserId(@RequestParam(value = "userId") long userId) {
         return new ProductResponse(productService.getProductsByUserId(userId));
+    }
+
+    @PostMapping("/pay")
+    public PaymentResponse handlePaymentRequest(@RequestBody PaymentRequest request) {
+        return productService.handlePaymentRequest(request);
     }
 }

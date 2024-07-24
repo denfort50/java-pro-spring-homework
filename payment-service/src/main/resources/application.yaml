@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: payment-service
+
+server:
+  servlet:
+    context-path: "/payment-service"
+  port: 8081
+
+services:
+  product:
+    url: http://localhost:8080/product-service/products
+

@@ -1,5 +1,18 @@
-### Получить продукт по productId
+### Получить продукт по productId через продуктовый сервис
 GET http://localhost:8080/product-service/products/one?productId=1
 
-### Получить список продуктов по userId
+### Получить список продуктов по userId через продуктовый сервис
 GET http://localhost:8080/product-service/products/all?userId=1
+
+### Получить список продуктов по userId через платежный сервис
+GET http://localhost:8081/payment-service/products/all?userId=10
+
+### Исполнить платеж через платежный сервис
+POST http://localhost:8081/payment-service/payments/execute
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "productId": 2,
+  "sum": 100.50
+}
