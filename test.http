@@ -5,7 +5,7 @@ GET http://localhost:8080/product-service/products/one?productId=1
 GET http://localhost:8080/product-service/products/all?userId=1
 
 ### Получить список продуктов по userId через платежный сервис
-GET http://localhost:8081/payment-service/products/all?userId=10
+GET http://localhost:8081/payment-service/products?userId=10
 
 ### Исполнить платеж через платежный сервис
 POST http://localhost:8081/payment-service/payments/execute
