@@ -19,8 +19,7 @@ public class UserService {
     }
 
     public User save(User user) {
-        Optional<User> userOptional = userRepository.save(user);
-        return userOptional.orElseThrow(() -> new RuntimeException("Не удалось сохранить пользователя"));
+        return userRepository.save(user);
     }
 
     public User findById(Long id) {
@@ -29,8 +28,14 @@ public class UserService {
                 new UserNotFoundException("Не удалось найти пользователя по id: " + id, HttpStatus.NOT_FOUND));
     }
 
-    public boolean deleteById(Long id) {
-        return userRepository.deleteById(id);
+    public User findUserWithProducts(Long id) {
+        Optional<User> userOptional = userRepository.findUserWithProducts(id);
+        return userOptional.orElseThrow(() ->
+                new UserNotFoundException("Не удалось найти пользователя по id: " + id, HttpStatus.NOT_FOUND));
+    }
+
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
     }
 
     public List<User> findAll() {

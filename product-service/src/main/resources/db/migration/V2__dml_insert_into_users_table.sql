@@ -1,2 +1,2 @@
-insert into main.users(username)
+insert into users(username)
 values ('Alex'), ('Sam'), ('John'), ('Peter');

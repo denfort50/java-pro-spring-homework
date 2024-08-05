@@ -24,27 +24,21 @@ public class ProductService {
     }
 
     public Product save(Product product) {
-        Optional<Product> productOptional = productRepository.save(product);
-        return productOptional.orElseThrow(() -> new RuntimeException("Не удалось сохранить продукт"));
+        return productRepository.save(product);
     }
 
     public void update(Product product) {
-        productRepository.update(product);
-    }
-
-    public void saveForUser(Long userId, Long productId) {
-        productRepository.saveForUser(userId, productId);
+        save(product);
     }
 
     public Product getProductById(Long id) {
-        Optional<Product> productOptional = productRepository.findProductById(id);
+        Optional<Product> productOptional = productRepository.findById(id);
         return productOptional.orElseThrow(() ->
                 new ProductNotFoundException("Не удалось найти продукт по id: " + id, HttpStatus.NOT_FOUND));
     }
 
     public List<Product> getProductsByUserId(Long id) {
-        userService.findById(id);
-        return productRepository.findProductsByUserId(id);
+        return userService.findUserWithProducts(id).getProducts();
     }
 
     public List<Product> findAll() {
@@ -52,7 +46,6 @@ public class ProductService {
     }
 
     public PaymentResponse handlePaymentRequest(PaymentRequest request) {
-        userService.findById(request.userId());
         List<Product> products = getProductsByUserId(request.userId());
         Product userProduct = products.stream()
                 .filter(product -> request.productId() == product.getId())
