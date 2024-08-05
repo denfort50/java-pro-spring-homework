@@ -10,7 +10,6 @@ import ru.dkalchenko.model.Product;
 import ru.dkalchenko.repository.ProductRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -32,8 +31,7 @@ public class ProductService {
     }
 
     public Product getProductById(Long id) {
-        Optional<Product> productOptional = productRepository.findById(id);
-        return productOptional.orElseThrow(() ->
+        return productRepository.findById(id).orElseThrow(() ->
                 new ProductNotFoundException("Не удалось найти продукт по id: " + id, HttpStatus.NOT_FOUND));
     }
 
